@@ -21,6 +21,10 @@ namespace JollyPoker
 
 				// Deal first 5 cards
 				var cards = deckOfCards.DealCards(5);
+
+				var winService = new CardsHandService();
+				winService.CheckHand(cards);
+
 				foreach (var card in cards)
 				{
 					Console.ForegroundColor = card.Suite.Color;
@@ -30,6 +34,8 @@ namespace JollyPoker
 				Console.ReadKey();
 			}
 		}
+
+		
 	}
 
 }

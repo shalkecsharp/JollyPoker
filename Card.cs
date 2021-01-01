@@ -12,6 +12,8 @@
 		
 		public Suite Suite { get; set; }
 
+		public bool Stop { get; set; }
+
 		public string DisplayValue
 		{
 			get

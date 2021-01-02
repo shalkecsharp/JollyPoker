@@ -1,4 +1,4 @@
-﻿namespace JollyPoker
+﻿namespace JollyPoker.Core
 {
 	public class Card
 	{
@@ -9,7 +9,7 @@
 		}
 
 		public int Value { get; set; }
-		
+
 		public Suite Suite { get; set; }
 
 		public bool Stop { get; set; }

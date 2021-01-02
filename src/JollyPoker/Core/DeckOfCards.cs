@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace JollyPoker
+namespace JollyPoker.Core
 {
 	public class DeckOfCards : List<Card>
 	{
@@ -35,7 +35,7 @@ namespace JollyPoker
 		public List<Card> DealCards(int numberOfCards)
 		{
 			var cards = this.Take(numberOfCards).ToList();
-			
+
 			RemoveRange(0, numberOfCards);
 
 			return cards;

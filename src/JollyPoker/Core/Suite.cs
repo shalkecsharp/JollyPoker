@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace JollyPoker
+namespace JollyPoker.Core
 {
 	public class Suite
 	{
@@ -18,7 +18,7 @@ namespace JollyPoker
 				switch (Value)
 				{
 					case 0:
-						return ConsoleColor.DarkBlue;					
+						return ConsoleColor.DarkBlue;
 					case 1:
 						return ConsoleColor.Red;
 					case 2:

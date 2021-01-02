@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using JollyPoker.Core;
+using JollyPoker.Core.Hand;
+using System.Collections.Generic;
 using System.Linq;
 
-namespace JollyPoker
+namespace JollyPoker.Services
 {
-	public class CardsHandService
+	public class HandService
 	{
-		public CardsHandResult CheckHand(List<Card> cards)
+		public HandResult CheckHand(List<Card> cards)
 		{
 			var sortedCards = cards.OrderBy(p => p.Value).ToList();
 			var c1 = sortedCards[0];
@@ -98,7 +100,7 @@ namespace JollyPoker
 			return null;
 		}
 
-		private CardsHandResult CheckFiveOfKind(Card c1, Card c2, Card c3, Card c4, Card c5)
+		private HandResult CheckFiveOfKind(Card c1, Card c2, Card c3, Card c4, Card c5)
 		{
 			if (
 				c1.Value == c2.Value &&
@@ -112,12 +114,12 @@ namespace JollyPoker
 				c4.Stop = true;
 				c5.Stop = true;
 
-				return new CardsHandResult(new FiveOfKind());
+				return new HandResult(new FiveOfKind());
 			}
 			return null;
 		}
 
-		private CardsHandResult CheckRoyalFlush(Card c1, Card c2, Card c3, Card c4, Card c5)
+		private HandResult CheckRoyalFlush(Card c1, Card c2, Card c3, Card c4, Card c5)
 		{
 			if (
 				c1.Value == 10 &&
@@ -133,13 +135,13 @@ namespace JollyPoker
 				c4.Stop = true;
 				c5.Stop = true;
 
-				return new CardsHandResult(new RoyalFlush());
+				return new HandResult(new RoyalFlush());
 			}
 
 			return null;
 		}
 
-		private CardsHandResult CheckStreetFlush(Card c1, Card c2, Card c3, Card c4, Card c5)
+		private HandResult CheckStreetFlush(Card c1, Card c2, Card c3, Card c4, Card c5)
 		{
 			if (
 				IsStreet(c1, c2, c3, c4, c5) &&
@@ -151,12 +153,12 @@ namespace JollyPoker
 				c4.Stop = true;
 				c5.Stop = true;
 
-				return new CardsHandResult(new StreetFlush());
+				return new HandResult(new StreetFlush());
 			}
 			return null;
 		}
 
-		private CardsHandResult CheckPokerFirstSet(Card c1, Card c2, Card c3, Card c4)
+		private HandResult CheckPokerFirstSet(Card c1, Card c2, Card c3, Card c4)
 		{
 			if (
 				c1.Value == c2.Value &&
@@ -168,12 +170,12 @@ namespace JollyPoker
 				c3.Stop = true;
 				c4.Stop = true;
 
-				return new CardsHandResult(new Poker());
+				return new HandResult(new Poker());
 			}
 			return null;
 		}
 
-		private CardsHandResult CheckPokerSecondSet(Card c2, Card c3, Card c4, Card c5)
+		private HandResult CheckPokerSecondSet(Card c2, Card c3, Card c4, Card c5)
 		{
 			if (
 				c2.Value == c3.Value &&
@@ -184,12 +186,12 @@ namespace JollyPoker
 				c3.Stop = true;
 				c4.Stop = true;
 				c5.Stop = true;
-				return new CardsHandResult(new Poker());
+				return new HandResult(new Poker());
 			}
 			return null;
 		}
 
-		private CardsHandResult CheckFullHouseFirstSet(Card c1, Card c2, Card c3, Card c4, Card c5)
+		private HandResult CheckFullHouseFirstSet(Card c1, Card c2, Card c3, Card c4, Card c5)
 		{
 			if (
 				c1.Value == c2.Value &&
@@ -202,12 +204,12 @@ namespace JollyPoker
 				c4.Stop = true;
 				c5.Stop = true;
 
-				return new CardsHandResult(new FullHouse());
+				return new HandResult(new FullHouse());
 			}
 			return null;
 		}
 
-		private CardsHandResult CheckFullHouseSecondSet(Card c1, Card c2, Card c3, Card c4, Card c5)
+		private HandResult CheckFullHouseSecondSet(Card c1, Card c2, Card c3, Card c4, Card c5)
 		{
 			if (
 				c1.Value == c2.Value &&
@@ -219,12 +221,12 @@ namespace JollyPoker
 				c3.Stop = true;
 				c4.Stop = true;
 				c5.Stop = true;
-				return new CardsHandResult(new FullHouse());
+				return new HandResult(new FullHouse());
 			}
 			return null;
 		}
 
-		private CardsHandResult CheckFlush(Card c1, Card c2, Card c3, Card c4, Card c5)
+		private HandResult CheckFlush(Card c1, Card c2, Card c3, Card c4, Card c5)
 		{
 			if (IsSameSuite(c1, c2, c3, c4, c5))
 			{
@@ -233,12 +235,12 @@ namespace JollyPoker
 				c3.Stop = true;
 				c4.Stop = true;
 				c5.Stop = true;
-				return new CardsHandResult(new Flush());
+				return new HandResult(new Flush());
 			}
 			return null;
 		}
 
-		private CardsHandResult CheckStreet(Card c1, Card c2, Card c3, Card c4, Card c5)
+		private HandResult CheckStreet(Card c1, Card c2, Card c3, Card c4, Card c5)
 		{
 			if (IsStreet(c1, c2, c3, c4, c5))
 			{
@@ -247,12 +249,12 @@ namespace JollyPoker
 				c3.Stop = true;
 				c4.Stop = true;
 				c5.Stop = true;
-				return new CardsHandResult(new Street());
+				return new HandResult(new Street());
 			}
 			return null;
 		}
 
-		private CardsHandResult CheckThreeOfKindFirstSet(Card c1, Card c2, Card c3)
+		private HandResult CheckThreeOfKindFirstSet(Card c1, Card c2, Card c3)
 		{
 			if (
 				c1.Value == c2.Value &&
@@ -261,12 +263,12 @@ namespace JollyPoker
 				c1.Stop = true;
 				c2.Stop = true;
 				c3.Stop = true;
-				return new CardsHandResult(new ThreeOfKind());
+				return new HandResult(new ThreeOfKind());
 			}
 			return null;
 		}
 
-		private CardsHandResult CheckThreeOfKindSecondSet(Card c2, Card c3, Card c4)
+		private HandResult CheckThreeOfKindSecondSet(Card c2, Card c3, Card c4)
 		{
 			if (
 				c2.Value == c3.Value &&
@@ -276,12 +278,12 @@ namespace JollyPoker
 				c3.Stop = true;
 				c4.Stop = true;
 
-				return new CardsHandResult(new ThreeOfKind());
+				return new HandResult(new ThreeOfKind());
 			}
 			return null;
 		}
 
-		private CardsHandResult CheckThreeOfKindThirdSet(Card c3, Card c4, Card c5)
+		private HandResult CheckThreeOfKindThirdSet(Card c3, Card c4, Card c5)
 		{
 			if (
 				c3.Value == c4.Value &&
@@ -290,12 +292,12 @@ namespace JollyPoker
 				c3.Stop = true;
 				c4.Stop = true;
 				c5.Stop = true;
-				return new CardsHandResult(new ThreeOfKind());
+				return new HandResult(new ThreeOfKind());
 			}
 			return null;
 		}
 
-		private CardsHandResult CheckTwoPairsFirstSet(Card c1, Card c2, Card c3, Card c4)
+		private HandResult CheckTwoPairsFirstSet(Card c1, Card c2, Card c3, Card c4)
 		{
 			if (
 				c1.Value == c2.Value &&
@@ -305,12 +307,12 @@ namespace JollyPoker
 				c2.Stop = true;
 				c3.Stop = true;
 				c4.Stop = true;
-				return new CardsHandResult(new TwoPairs());
+				return new HandResult(new TwoPairs());
 			}
 			return null;
 		}
 
-		private CardsHandResult CheckTwoPairsSecondSet(Card c1, Card c2, Card c4, Card c5)
+		private HandResult CheckTwoPairsSecondSet(Card c1, Card c2, Card c4, Card c5)
 		{
 			if (
 				c1.Value == c2.Value &&
@@ -320,12 +322,12 @@ namespace JollyPoker
 				c2.Stop = true;
 				c4.Stop = true;
 				c5.Stop = true;
-				return new CardsHandResult(new TwoPairs());
+				return new HandResult(new TwoPairs());
 			}
 			return null;
 		}
 
-		private CardsHandResult CheckTwoPairsThirdSet(Card c2, Card c3, Card c4, Card c5)
+		private HandResult CheckTwoPairsThirdSet(Card c2, Card c3, Card c4, Card c5)
 		{
 			if (
 				c2.Value == c3.Value &&
@@ -335,12 +337,12 @@ namespace JollyPoker
 				c3.Stop = true;
 				c4.Stop = true;
 				c5.Stop = true;
-				return new CardsHandResult(new TwoPairs());
+				return new HandResult(new TwoPairs());
 			}
 			return null;
 		}
 
-		private CardsHandResult CheckHighPairFirstSet(Card c1, Card c2)
+		private HandResult CheckHighPairFirstSet(Card c1, Card c2)
 		{
 			if (
 				c1.Value == c2.Value &&
@@ -349,12 +351,12 @@ namespace JollyPoker
 			{
 				c1.Stop = true;
 				c2.Stop = true;
-				return new CardsHandResult(new HighPair());
+				return new HandResult(new HighPair());
 			}
 			return null;
 		}
 
-		private CardsHandResult CheckHighPairSecondSet(Card c2, Card c3)
+		private HandResult CheckHighPairSecondSet(Card c2, Card c3)
 		{
 			if (
 				c2.Value == c3.Value &&
@@ -363,12 +365,12 @@ namespace JollyPoker
 			{
 				c2.Stop = true;
 				c3.Stop = true;
-				return new CardsHandResult(new HighPair());
+				return new HandResult(new HighPair());
 			}
 			return null;
 		}
 
-		private CardsHandResult CheckHighPairThirdSet(Card c3, Card c4)
+		private HandResult CheckHighPairThirdSet(Card c3, Card c4)
 		{
 			if (
 				c3.Value == c4.Value &&
@@ -377,12 +379,12 @@ namespace JollyPoker
 			{
 				c3.Stop = true;
 				c4.Stop = true;
-				return new CardsHandResult(new HighPair());
+				return new HandResult(new HighPair());
 			}
 			return null;
 		}
 
-		private CardsHandResult CheckHighPairFourthSet(Card c4, Card c5)
+		private HandResult CheckHighPairFourthSet(Card c4, Card c5)
 		{
 			if (
 				c4.Value == c5.Value &&
@@ -391,7 +393,7 @@ namespace JollyPoker
 			{
 				c4.Stop = true;
 				c5.Stop = true;
-				return new CardsHandResult(new HighPair());
+				return new HandResult(new HighPair());
 			}
 			return null;
 		}

@@ -1,4 +1,6 @@
-﻿using JollyPoker;
+﻿using JollyPoker.Core;
+using JollyPoker.Core.Hand;
+using JollyPoker.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
@@ -19,13 +21,13 @@ namespace JollyPokerTests
 				new Card(2, new Suite(0)),
 				new Card(15, new Suite(0)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsInstanceOfType(result.WinningResult, typeof(FiveOfKind), "Result should be FiveOfKind.");
+			Assert.IsInstanceOfType(result.Result, typeof(FiveOfKind), "Result should be FiveOfKind.");
 			Assert.IsTrue(cards.TrueForAll(p => p.Stop), "All cards should be stopped");
 		}
 
@@ -41,13 +43,13 @@ namespace JollyPokerTests
 				new Card(2, new Suite(0)),
 				new Card(2, new Suite(0)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsInstanceOfType(result.WinningResult, typeof(FiveOfKind), "Result should be FiveOfKind.");
+			Assert.IsInstanceOfType(result.Result, typeof(FiveOfKind), "Result should be FiveOfKind.");
 			Assert.IsTrue(cards.TrueForAll(p => p.Stop), "All cards should be stopped");
 		}
 
@@ -63,13 +65,13 @@ namespace JollyPokerTests
 				new Card(2, new Suite(0)),
 				new Card(2, new Suite(0)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsInstanceOfType(result.WinningResult, typeof(FiveOfKind), "Result should be FiveOfKind.");
+			Assert.IsInstanceOfType(result.Result, typeof(FiveOfKind), "Result should be FiveOfKind.");
 			Assert.IsTrue(cards.TrueForAll(p => p.Stop), "All cards should be stopped");
 		}		
 		
@@ -85,13 +87,13 @@ namespace JollyPokerTests
 				new Card(14, new Suite(1)),
 				new Card(11, new Suite(1)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsInstanceOfType(result.WinningResult, typeof(RoyalFlush), "Result should be RoyalFlush.");
+			Assert.IsInstanceOfType(result.Result, typeof(RoyalFlush), "Result should be RoyalFlush.");
 			Assert.IsTrue(cards.TrueForAll(p => p.Stop), "All cards should be stopped");
 		}
 
@@ -107,13 +109,13 @@ namespace JollyPokerTests
 				new Card(14, new Suite(1)),
 				new Card(10, new Suite(1)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsInstanceOfType(result.WinningResult, typeof(RoyalFlush), "Result should be RoyalFlush.");
+			Assert.IsInstanceOfType(result.Result, typeof(RoyalFlush), "Result should be RoyalFlush.");
 			Assert.IsTrue(cards.TrueForAll(p => p.Stop), "All cards should be stopped");
 		}
 
@@ -129,13 +131,13 @@ namespace JollyPokerTests
 				new Card(13, new Suite(1)),
 				new Card(14, new Suite(2)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsNotInstanceOfType(result.WinningResult, typeof(RoyalFlush), "Result should not be RoyalFlush.");
+			Assert.IsNotInstanceOfType(result.Result, typeof(RoyalFlush), "Result should not be RoyalFlush.");
 		}
 
 		[TestMethod]	
@@ -150,13 +152,13 @@ namespace JollyPokerTests
 				new Card(6, new Suite(1)),
 				new Card(7, new Suite(1)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsInstanceOfType(result.WinningResult, typeof(StreetFlush), "Result should be StreetFlush.");
+			Assert.IsInstanceOfType(result.Result, typeof(StreetFlush), "Result should be StreetFlush.");
 			Assert.IsTrue(cards.TrueForAll(p => p.Stop), "All cards should be stopped");
 		}
 
@@ -172,13 +174,13 @@ namespace JollyPokerTests
 				new Card(7, new Suite(1)),
 				new Card(6, new Suite(1)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsInstanceOfType(result.WinningResult, typeof(StreetFlush), "Result should be StreetFlush.");
+			Assert.IsInstanceOfType(result.Result, typeof(StreetFlush), "Result should be StreetFlush.");
 			Assert.IsTrue(cards.TrueForAll(p => p.Stop), "All cards should be stopped");
 		}
 
@@ -194,13 +196,13 @@ namespace JollyPokerTests
 				new Card(10, new Suite(1)),
 				new Card(11, new Suite(1)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsInstanceOfType(result.WinningResult, typeof(StreetFlush), "Result should be StreetFlush.");
+			Assert.IsInstanceOfType(result.Result, typeof(StreetFlush), "Result should be StreetFlush.");
 			Assert.IsTrue(cards.TrueForAll(p => p.Stop), "All cards should be stopped");
 		}
 
@@ -216,13 +218,13 @@ namespace JollyPokerTests
 				new Card(4, new Suite(1)),
 				new Card(5, new Suite(1)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsInstanceOfType(result.WinningResult, typeof(StreetFlush), "Result should be StreetFlush.");
+			Assert.IsInstanceOfType(result.Result, typeof(StreetFlush), "Result should be StreetFlush.");
 			Assert.IsTrue(cards.TrueForAll(p => p.Stop), "All cards should be stopped");
 		}
 
@@ -238,13 +240,13 @@ namespace JollyPokerTests
 				new Card(3, new Suite(2)),
 				new Card(5, new Suite(1)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsInstanceOfType(result.WinningResult, typeof(Poker), "Result should be Poker.");
+			Assert.IsInstanceOfType(result.Result, typeof(Poker), "Result should be Poker.");
 			Assert.IsTrue(cards[0].Stop, "Card should be stopped");
 			Assert.IsTrue(cards[1].Stop, "Card should be stopped");
 			Assert.IsTrue(cards[2].Stop, "Card should be stopped");
@@ -263,13 +265,13 @@ namespace JollyPokerTests
 				new Card(3, new Suite(3)),
 				new Card(3, new Suite(1)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsInstanceOfType(result.WinningResult, typeof(Poker), "Result should be Poker.");
+			Assert.IsInstanceOfType(result.Result, typeof(Poker), "Result should be Poker.");
 			Assert.IsTrue(cards[1].Stop, "Card should be stopped");
 			Assert.IsTrue(cards[2].Stop, "Card should be stopped");
 			Assert.IsTrue(cards[3].Stop, "Card should be stopped");
@@ -288,13 +290,13 @@ namespace JollyPokerTests
 				new Card(3, new Suite(1)),
 				new Card(3, new Suite(1)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsInstanceOfType(result.WinningResult, typeof(Poker), "Result should be Poker.");
+			Assert.IsInstanceOfType(result.Result, typeof(Poker), "Result should be Poker.");
 			Assert.IsTrue(cards[0].Stop, "Card should be stopped");
 			Assert.IsTrue(cards[1].Stop, "Card should be stopped");
 			Assert.IsTrue(cards[3].Stop, "Card should be stopped");
@@ -313,13 +315,13 @@ namespace JollyPokerTests
 				new Card(5, new Suite(1)),
 				new Card(5, new Suite(1)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsInstanceOfType(result.WinningResult, typeof(FullHouse), "Result should be FullHouse.");
+			Assert.IsInstanceOfType(result.Result, typeof(FullHouse), "Result should be FullHouse.");
 			Assert.IsTrue(cards.TrueForAll(p => p.Stop), "All cards should be stopped");
 		}
 
@@ -335,13 +337,13 @@ namespace JollyPokerTests
 				new Card(5, new Suite(1)),
 				new Card(5, new Suite(1)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsInstanceOfType(result.WinningResult, typeof(FullHouse), "Result should be FullHouse.");
+			Assert.IsInstanceOfType(result.Result, typeof(FullHouse), "Result should be FullHouse.");
 			Assert.IsTrue(cards.TrueForAll(p => p.Stop), "All cards should be stopped");
 		}
 
@@ -357,13 +359,13 @@ namespace JollyPokerTests
 				new Card(4, new Suite(1)),
 				new Card(5, new Suite(1)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsInstanceOfType(result.WinningResult, typeof(Flush), "Result should be Flush.");
+			Assert.IsInstanceOfType(result.Result, typeof(Flush), "Result should be Flush.");
 			Assert.IsTrue(cards.TrueForAll(p => p.Stop), "All cards should be stopped");
 		}
 
@@ -379,13 +381,13 @@ namespace JollyPokerTests
 				new Card(5, new Suite(1)),
 				new Card(6, new Suite(1)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsInstanceOfType(result.WinningResult, typeof(Street), "Result should be Street.");
+			Assert.IsInstanceOfType(result.Result, typeof(Street), "Result should be Street.");
 			Assert.IsTrue(cards.TrueForAll(p => p.Stop), "All cards should be stopped");
 		}
 
@@ -401,13 +403,13 @@ namespace JollyPokerTests
 				new Card(4, new Suite(1)),
 				new Card(6, new Suite(1)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsInstanceOfType(result.WinningResult, typeof(Street), "Result should be Street.");
+			Assert.IsInstanceOfType(result.Result, typeof(Street), "Result should be Street.");
 			Assert.IsTrue(cards.TrueForAll(p => p.Stop), "All cards should be stopped");
 		}
 
@@ -423,13 +425,13 @@ namespace JollyPokerTests
 				new Card(4, new Suite(1)),
 				new Card(5, new Suite(1)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsInstanceOfType(result.WinningResult, typeof(ThreeOfKind), "Result should be ThreeOfKind.");
+			Assert.IsInstanceOfType(result.Result, typeof(ThreeOfKind), "Result should be ThreeOfKind.");
 			Assert.IsTrue(cards[0].Stop, "Card should be stopped");
 			Assert.IsTrue(cards[1].Stop, "Card should be stopped");
 			Assert.IsTrue(cards[2].Stop, "Card should be stopped");
@@ -447,13 +449,13 @@ namespace JollyPokerTests
 				new Card(3, new Suite(1)),
 				new Card(5, new Suite(1)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsInstanceOfType(result.WinningResult, typeof(ThreeOfKind), "Result should be ThreeOfKind.");
+			Assert.IsInstanceOfType(result.Result, typeof(ThreeOfKind), "Result should be ThreeOfKind.");
 			Assert.IsTrue(cards[1].Stop, "Card should be stopped");
 			Assert.IsTrue(cards[2].Stop, "Card should be stopped");
 			Assert.IsTrue(cards[3].Stop, "Card should be stopped");
@@ -471,13 +473,13 @@ namespace JollyPokerTests
 				new Card(4, new Suite(1)),
 				new Card(4, new Suite(1)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsInstanceOfType(result.WinningResult, typeof(ThreeOfKind), "Result should be ThreeOfKind.");
+			Assert.IsInstanceOfType(result.Result, typeof(ThreeOfKind), "Result should be ThreeOfKind.");
 			Assert.IsTrue(cards[2].Stop, "Card should be stopped");
 			Assert.IsTrue(cards[3].Stop, "Card should be stopped");
 			Assert.IsTrue(cards[4].Stop, "Card should be stopped");
@@ -495,13 +497,13 @@ namespace JollyPokerTests
 				new Card(2, new Suite(1)),
 				new Card(4, new Suite(1)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsInstanceOfType(result.WinningResult, typeof(ThreeOfKind), "Result should be ThreeOfKind.");
+			Assert.IsInstanceOfType(result.Result, typeof(ThreeOfKind), "Result should be ThreeOfKind.");
 			Assert.IsTrue(cards[0].Stop, "Card should be stopped");
 			Assert.IsTrue(cards[2].Stop, "Card should be stopped");
 			Assert.IsTrue(cards[4].Stop, "Card should be stopped");
@@ -519,13 +521,13 @@ namespace JollyPokerTests
 				new Card(4, new Suite(1)),
 				new Card(6, new Suite(1)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsInstanceOfType(result.WinningResult, typeof(TwoPairs), "Result should be TwoPairs.");
+			Assert.IsInstanceOfType(result.Result, typeof(TwoPairs), "Result should be TwoPairs.");
 			Assert.IsTrue(cards[0].Stop, "Card should be stopped");
 			Assert.IsTrue(cards[1].Stop, "Card should be stopped");
 			Assert.IsTrue(cards[2].Stop, "Card should be stopped");
@@ -544,13 +546,13 @@ namespace JollyPokerTests
 				new Card(5, new Suite(1)),
 				new Card(5, new Suite(1)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsInstanceOfType(result.WinningResult, typeof(TwoPairs), "Result should be TwoPairs.");
+			Assert.IsInstanceOfType(result.Result, typeof(TwoPairs), "Result should be TwoPairs.");
 			Assert.IsTrue(cards[0].Stop, "Card should be stopped");
 			Assert.IsTrue(cards[1].Stop, "Card should be stopped");
 			Assert.IsTrue(cards[3].Stop, "Card should be stopped");
@@ -569,13 +571,13 @@ namespace JollyPokerTests
 				new Card(5, new Suite(1)),
 				new Card(5, new Suite(1)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsInstanceOfType(result.WinningResult, typeof(TwoPairs), "Result should be TwoPairs.");
+			Assert.IsInstanceOfType(result.Result, typeof(TwoPairs), "Result should be TwoPairs.");
 			Assert.IsTrue(cards[1].Stop, "Card should be stopped");
 			Assert.IsTrue(cards[2].Stop, "Card should be stopped");
 			Assert.IsTrue(cards[3].Stop, "Card should be stopped");
@@ -594,13 +596,13 @@ namespace JollyPokerTests
 				new Card(12, new Suite(1)),
 				new Card(13, new Suite(1)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsInstanceOfType(result.WinningResult, typeof(HighPair), "Result should be HighPair.");
+			Assert.IsInstanceOfType(result.Result, typeof(HighPair), "Result should be HighPair.");
 			Assert.IsTrue(cards[0].Stop, "Card should be stopped");
 			Assert.IsTrue(cards[1].Stop, "Card should be stopped");
 		}
@@ -617,13 +619,13 @@ namespace JollyPokerTests
 				new Card(12, new Suite(1)),
 				new Card(13, new Suite(1)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsInstanceOfType(result.WinningResult, typeof(HighPair), "Result should be HighPair.");
+			Assert.IsInstanceOfType(result.Result, typeof(HighPair), "Result should be HighPair.");
 			Assert.IsTrue(cards[1].Stop, "Card should be stopped");
 			Assert.IsTrue(cards[2].Stop, "Card should be stopped");
 		}
@@ -640,13 +642,13 @@ namespace JollyPokerTests
 				new Card(10, new Suite(1)),
 				new Card(13, new Suite(1)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsInstanceOfType(result.WinningResult, typeof(HighPair), "Result should be HighPair.");
+			Assert.IsInstanceOfType(result.Result, typeof(HighPair), "Result should be HighPair.");
 			Assert.IsTrue(cards[2].Stop, "Card should be stopped");
 			Assert.IsTrue(cards[3].Stop, "Card should be stopped");
 		}
@@ -663,13 +665,13 @@ namespace JollyPokerTests
 				new Card(10, new Suite(1)),
 				new Card(10, new Suite(1)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsInstanceOfType(result.WinningResult, typeof(HighPair), "Result should be HighPair.");
+			Assert.IsInstanceOfType(result.Result, typeof(HighPair), "Result should be HighPair.");
 			Assert.IsTrue(cards[3].Stop, "Card should be stopped");
 			Assert.IsTrue(cards[4].Stop, "Card should be stopped");
 		}
@@ -686,13 +688,13 @@ namespace JollyPokerTests
 				new Card(13, new Suite(1)),
 				new Card(10, new Suite(1)),
 			};
-			var winService = new CardsHandService();
+			var winService = new HandService();
 
 			// Act
 			var result = winService.CheckHand(cards);
 
 			// Assert
-			Assert.IsInstanceOfType(result.WinningResult, typeof(HighPair), "Result should be HighPair.");
+			Assert.IsInstanceOfType(result.Result, typeof(HighPair), "Result should be HighPair.");
 			Assert.IsTrue(cards[0].Stop, "Card should be stopped");
 			Assert.IsTrue(cards[4].Stop, "Card should be stopped");
 		}

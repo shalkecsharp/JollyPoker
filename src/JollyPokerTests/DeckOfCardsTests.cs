@@ -1,6 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using JollyPoker.Core;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace JollyPoker.Tests
+namespace JollyPokerTests
 {
 	[TestClass]
 	public class DeckOfCardsTests

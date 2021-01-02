@@ -1,4 +1,6 @@
-﻿using System;
+﻿using JollyPoker.Core;
+using JollyPoker.Services;
+using System;
 using System.Text;
 
 namespace JollyPoker
@@ -22,7 +24,7 @@ namespace JollyPoker
 				// Deal first 5 cards
 				var cards = deckOfCards.DealCards(5);
 
-				var winService = new CardsHandService();
+				var winService = new HandService();
 				winService.CheckHand(cards);
 
 				foreach (var card in cards)

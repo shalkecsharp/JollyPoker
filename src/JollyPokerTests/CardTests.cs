@@ -1,4 +1,5 @@
 ﻿using JollyPoker;
+using JollyPoker.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 

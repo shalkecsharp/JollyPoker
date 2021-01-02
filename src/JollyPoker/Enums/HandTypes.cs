@@ -1,6 +1,6 @@
-﻿namespace JollyPoker
+﻿namespace JollyPoker.Enums
 {
-	public enum WinningTypes
+	public enum HandTypes
 	{
 		FiveOfKind,
 		RoyalFlush,

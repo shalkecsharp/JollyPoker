@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/JollyPoker/DesignTimeBuild/.dtbcache.v2
+/.vs/JollyPoker/v16
+/obj

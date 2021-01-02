@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JollyPoker", "JollyPoker.csproj", "{9988C6E6-D800-43EE-9247-C9830C868983}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JollyPoker", "JollyPoker\JollyPoker.csproj", "{9988C6E6-D800-43EE-9247-C9830C868983}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JollyPokerTests", "..\JollyPokerTests\JollyPokerTests.csproj", "{E5D68C1D-0688-4847-9FAF-31F96AC93103}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JollyPokerTests", "JollyPokerTests\JollyPokerTests.csproj", "{E5D68C1D-0688-4847-9FAF-31F96AC93103}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

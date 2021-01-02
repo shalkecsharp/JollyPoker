@@ -119,26 +119,6 @@ namespace JollyPokerTests
 			Assert.IsTrue(cards.TrueForAll(p => p.Stop), "All cards should be stopped");
 		}
 
-		[TestMethod]
-		public void CheckHand_RoyalFlush_NotAllSuites_ThenNoRoyalFlush()
-		{
-			// Arrange
-			var cards = new List<Card>
-			{
-				new Card(10, new Suite(1)),
-				new Card(11, new Suite(1)),
-				new Card(12, new Suite(1)),
-				new Card(13, new Suite(1)),
-				new Card(14, new Suite(2)),
-			};
-			var winService = new HandService();
-
-			// Act
-			var result = winService.CheckHand(cards);
-
-			// Assert
-			Assert.IsNotInstanceOfType(result.Result, typeof(RoyalFlush), "Result should not be RoyalFlush.");
-		}
 
 		[TestMethod]	
 		public void CheckHand_StreetFlush_StartsWithThree_ThenStreetFlush()

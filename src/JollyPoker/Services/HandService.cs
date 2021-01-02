@@ -1,5 +1,5 @@
 ﻿using JollyPoker.Core;
-using JollyPoker.Core.Hand;
+using JollyPoker.Services.HandCheck;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,6 +7,34 @@ namespace JollyPoker.Services
 {
 	public class HandService
 	{
+		private readonly List<IHandCheck> _handCheckServices;
+
+		public HandService()
+		{
+			_handCheckServices = new List<IHandCheck>
+			{
+				new FiveOfKindHandCheck(),
+				new RoyalFlushHandCheck(),
+				new StreetFlushHandCheck(),
+				new PokerFirstSetHandCheck(),
+				new PokerSecondSetHandCheck(),
+				new FullHouseFirstSetHandCheck(),
+				new FullHouseSecondSetHandCheck(),
+				new FlushHandCheck(),
+				new StreetHandCheck(),
+				new ThreeOfKindFirstSetHandCheck(),
+				new ThreeOfKindSecondSetHandCheck(),
+				new ThreeOfKindThirdSetHandCheck(),
+				new TwoPairsFirstSetHandCheck(),
+				new TwoPairsSecondSetHandCheck(),
+				new TwoPairsThirdSetHandCheck(),
+				new HighPairFirstSetHandCheck(),
+				new HighPairSecondSetHandCheck(),
+				new HighPairThirdSetHandCheck(),
+				new HighPairFourthSetHandCheck()
+			};
+		}
+
 		public HandResult CheckHand(List<Card> cards)
 		{
 			var sortedCards = cards.OrderBy(p => p.Value).ToList();
@@ -16,406 +44,13 @@ namespace JollyPoker.Services
 			var c4 = sortedCards[3];
 			var c5 = sortedCards[4];
 
-			// FIVE OF A KIND
-			var result = CheckFiveOfKind(c1, c2, c3, c4, c5);
-			if (result != null) return result;
-
-			// ROYAL FLUSH
-			result = CheckRoyalFlush(c1, c2, c3, c4, c5);
-			if (result != null) return result;
-
-
-			// STREET FLUSH
-			result = CheckStreetFlush(c1, c2, c3, c4, c5);
-			if (result != null) return result;
-
-
-			// POKER 1
-			result = CheckPokerFirstSet(c1, c2, c3, c4);
-			if (result != null) return result;
-
-
-			// POKER 2
-			result = CheckPokerSecondSet(c2, c3, c4, c5);
-			if (result != null) return result;
-
-
-			// FULL HOUSE 1
-			result = CheckFullHouseFirstSet(c1, c2, c3, c4, c5);
-			if (result != null) return result;
-
-			// FULL HOUSE 2
-			result = CheckFullHouseSecondSet(c1, c2, c3, c4, c5);
-			if (result != null) return result;
-
-			// FLUSH
-			result = CheckFlush(c1, c2, c3, c4, c5);
-			if (result != null) return result;
-
-			// STREET
-			result = CheckStreet(c1, c2, c3, c4, c5);
-			if (result != null) return result;
-
-			// THREE OF A KIND 1
-			result = CheckThreeOfKindFirstSet(c1, c2, c3);
-			if (result != null) return result;
-
-			// THREE OF A KIND 2
-			result = CheckThreeOfKindSecondSet(c2, c3, c4);
-			if (result != null) return result;
-
-			// THREE OF A KIND 3
-			result = CheckThreeOfKindThirdSet(c3, c4, c5);
-			if (result != null) return result;
-
-			// TWO PAIRS 1
-			result = CheckTwoPairsFirstSet(c1, c2, c3, c4);
-			if (result != null) return result;
-
-			// TWO PAIRS 2
-			result = CheckTwoPairsSecondSet(c1, c2, c4, c5);
-			if (result != null) return result;
-
-			// TWO PAIRS 3
-			result = CheckTwoPairsThirdSet(c2, c3, c4, c5);
-			if (result != null) return result;
-
-
-			// HIGH PAIR 1
-			result = CheckHighPairFirstSet(c1, c2);
-			if (result != null) return result;
-
-			// HIGH PAIR 2
-			result = CheckHighPairSecondSet(c2, c3);
-			if (result != null) return result;
-
-			// HIGH PAIR 3
-			result = CheckHighPairThirdSet(c3, c4);
-			if (result != null) return result;
-
-			// HIGH PAIR 4
-			result = CheckHighPairFourthSet(c4, c5);
-			if (result != null) return result;
-
-			return null;
-		}
-
-		private HandResult CheckFiveOfKind(Card c1, Card c2, Card c3, Card c4, Card c5)
-		{
-			if (
-				c1.Value == c2.Value &&
-				c2.Value == c3.Value &&
-				c3.Value == c4.Value &&
-				c5.Value == 15)
+			foreach (var handCheckService in _handCheckServices)
 			{
-				c1.Stop = true;
-				c2.Stop = true;
-				c3.Stop = true;
-				c4.Stop = true;
-				c5.Stop = true;
-
-				return new HandResult(new FiveOfKind());
-			}
-			return null;
-		}
-
-		private HandResult CheckRoyalFlush(Card c1, Card c2, Card c3, Card c4, Card c5)
-		{
-			if (
-				c1.Value == 10 &&
-				c2.Value == 11 &&
-				c3.Value == 12 &&
-				c4.Value == 13 &&
-				c5.Value == 14 &&
-				IsSameSuite(c1, c2, c3, c4, c5))
-			{
-				c1.Stop = true;
-				c2.Stop = true;
-				c3.Stop = true;
-				c4.Stop = true;
-				c5.Stop = true;
-
-				return new HandResult(new RoyalFlush());
+				var result = handCheckService.CheckHand(c1, c2, c3, c4, c5);
+				if (result != null) return result;
 			}
 
 			return null;
 		}
-
-		private HandResult CheckStreetFlush(Card c1, Card c2, Card c3, Card c4, Card c5)
-		{
-			if (
-				IsStreet(c1, c2, c3, c4, c5) &&
-				IsSameSuite(c1, c2, c3, c4, c5))
-			{
-				c1.Stop = true;
-				c2.Stop = true;
-				c3.Stop = true;
-				c4.Stop = true;
-				c5.Stop = true;
-
-				return new HandResult(new StreetFlush());
-			}
-			return null;
-		}
-
-		private HandResult CheckPokerFirstSet(Card c1, Card c2, Card c3, Card c4)
-		{
-			if (
-				c1.Value == c2.Value &&
-				c2.Value == c3.Value &&
-				c3.Value == c4.Value)
-			{
-				c1.Stop = true;
-				c2.Stop = true;
-				c3.Stop = true;
-				c4.Stop = true;
-
-				return new HandResult(new Poker());
-			}
-			return null;
-		}
-
-		private HandResult CheckPokerSecondSet(Card c2, Card c3, Card c4, Card c5)
-		{
-			if (
-				c2.Value == c3.Value &&
-				c3.Value == c4.Value &&
-				c4.Value == c5.Value)
-			{
-				c2.Stop = true;
-				c3.Stop = true;
-				c4.Stop = true;
-				c5.Stop = true;
-				return new HandResult(new Poker());
-			}
-			return null;
-		}
-
-		private HandResult CheckFullHouseFirstSet(Card c1, Card c2, Card c3, Card c4, Card c5)
-		{
-			if (
-				c1.Value == c2.Value &&
-				c3.Value == c4.Value &&
-				c4.Value == c5.Value)
-			{
-				c1.Stop = true;
-				c2.Stop = true;
-				c3.Stop = true;
-				c4.Stop = true;
-				c5.Stop = true;
-
-				return new HandResult(new FullHouse());
-			}
-			return null;
-		}
-
-		private HandResult CheckFullHouseSecondSet(Card c1, Card c2, Card c3, Card c4, Card c5)
-		{
-			if (
-				c1.Value == c2.Value &&
-				c2.Value == c3.Value &&
-				c4.Value == c5.Value)
-			{
-				c1.Stop = true;
-				c2.Stop = true;
-				c3.Stop = true;
-				c4.Stop = true;
-				c5.Stop = true;
-				return new HandResult(new FullHouse());
-			}
-			return null;
-		}
-
-		private HandResult CheckFlush(Card c1, Card c2, Card c3, Card c4, Card c5)
-		{
-			if (IsSameSuite(c1, c2, c3, c4, c5))
-			{
-				c1.Stop = true;
-				c2.Stop = true;
-				c3.Stop = true;
-				c4.Stop = true;
-				c5.Stop = true;
-				return new HandResult(new Flush());
-			}
-			return null;
-		}
-
-		private HandResult CheckStreet(Card c1, Card c2, Card c3, Card c4, Card c5)
-		{
-			if (IsStreet(c1, c2, c3, c4, c5))
-			{
-				c1.Stop = true;
-				c2.Stop = true;
-				c3.Stop = true;
-				c4.Stop = true;
-				c5.Stop = true;
-				return new HandResult(new Street());
-			}
-			return null;
-		}
-
-		private HandResult CheckThreeOfKindFirstSet(Card c1, Card c2, Card c3)
-		{
-			if (
-				c1.Value == c2.Value &&
-				c2.Value == c3.Value)
-			{
-				c1.Stop = true;
-				c2.Stop = true;
-				c3.Stop = true;
-				return new HandResult(new ThreeOfKind());
-			}
-			return null;
-		}
-
-		private HandResult CheckThreeOfKindSecondSet(Card c2, Card c3, Card c4)
-		{
-			if (
-				c2.Value == c3.Value &&
-				c3.Value == c4.Value)
-			{
-				c2.Stop = true;
-				c3.Stop = true;
-				c4.Stop = true;
-
-				return new HandResult(new ThreeOfKind());
-			}
-			return null;
-		}
-
-		private HandResult CheckThreeOfKindThirdSet(Card c3, Card c4, Card c5)
-		{
-			if (
-				c3.Value == c4.Value &&
-				c4.Value == c5.Value)
-			{
-				c3.Stop = true;
-				c4.Stop = true;
-				c5.Stop = true;
-				return new HandResult(new ThreeOfKind());
-			}
-			return null;
-		}
-
-		private HandResult CheckTwoPairsFirstSet(Card c1, Card c2, Card c3, Card c4)
-		{
-			if (
-				c1.Value == c2.Value &&
-				c3.Value == c4.Value)
-			{
-				c1.Stop = true;
-				c2.Stop = true;
-				c3.Stop = true;
-				c4.Stop = true;
-				return new HandResult(new TwoPairs());
-			}
-			return null;
-		}
-
-		private HandResult CheckTwoPairsSecondSet(Card c1, Card c2, Card c4, Card c5)
-		{
-			if (
-				c1.Value == c2.Value &&
-				c4.Value == c5.Value)
-			{
-				c1.Stop = true;
-				c2.Stop = true;
-				c4.Stop = true;
-				c5.Stop = true;
-				return new HandResult(new TwoPairs());
-			}
-			return null;
-		}
-
-		private HandResult CheckTwoPairsThirdSet(Card c2, Card c3, Card c4, Card c5)
-		{
-			if (
-				c2.Value == c3.Value &&
-				c4.Value == c5.Value)
-			{
-				c2.Stop = true;
-				c3.Stop = true;
-				c4.Stop = true;
-				c5.Stop = true;
-				return new HandResult(new TwoPairs());
-			}
-			return null;
-		}
-
-		private HandResult CheckHighPairFirstSet(Card c1, Card c2)
-		{
-			if (
-				c1.Value == c2.Value &&
-				c1.Value >= 10 &&
-				c2.Value >= 10)
-			{
-				c1.Stop = true;
-				c2.Stop = true;
-				return new HandResult(new HighPair());
-			}
-			return null;
-		}
-
-		private HandResult CheckHighPairSecondSet(Card c2, Card c3)
-		{
-			if (
-				c2.Value == c3.Value &&
-				c2.Value >= 10 &&
-				c3.Value >= 10)
-			{
-				c2.Stop = true;
-				c3.Stop = true;
-				return new HandResult(new HighPair());
-			}
-			return null;
-		}
-
-		private HandResult CheckHighPairThirdSet(Card c3, Card c4)
-		{
-			if (
-				c3.Value == c4.Value &&
-				c3.Value >= 10 &&
-				c4.Value >= 10)
-			{
-				c3.Stop = true;
-				c4.Stop = true;
-				return new HandResult(new HighPair());
-			}
-			return null;
-		}
-
-		private HandResult CheckHighPairFourthSet(Card c4, Card c5)
-		{
-			if (
-				c4.Value == c5.Value &&
-				c4.Value >= 10 &&
-				c5.Value >= 10)
-			{
-				c4.Stop = true;
-				c5.Stop = true;
-				return new HandResult(new HighPair());
-			}
-			return null;
-		}
-
-
-		private bool IsSameSuite(Card c1, Card c2, Card c3, Card c4, Card c5)
-		{
-			return
-				c1.Suite.Value == c2.Suite.Value &&
-				c2.Suite.Value == c3.Suite.Value &&
-				c3.Suite.Value == c4.Suite.Value &&
-				c4.Suite.Value == c5.Suite.Value;
-		}
-
-		private bool IsStreet(Card c1, Card c2, Card c3, Card c4, Card c5)
-		{
-			return
-				c1.Value == c2.Value - 1 &&
-				c2.Value == c3.Value - 1 &&
-				c3.Value == c4.Value - 1 &&
-				c4.Value == c5.Value - 1;
-		}
-
 	}
 }

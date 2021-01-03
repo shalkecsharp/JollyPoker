@@ -15,7 +15,9 @@ namespace JollyPoker.Services
 			{
 				new FiveOfKindHandCheck(),
 				new RoyalFlushHandCheck(),
+				new RoyalFlushJokerHandCheck(),
 				new StreetFlushHandCheck(),
+				new StreetFlushJokerHandCheck(),
 				new PokerFirstSetHandCheck(),
 				new PokerSecondSetHandCheck(),
 				new FullHouseFirstSetHandCheck(),

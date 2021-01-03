@@ -18,7 +18,11 @@
 		{
 			get
 			{
-				if (Value > 1 && Value < 11)
+				if (Value > 1 && Value < 10)
+				{
+					return $" {Value}";
+				}
+				else if (Value == 10)
 				{
 					return Value.ToString();
 				}
@@ -27,15 +31,15 @@
 					switch (Value)
 					{
 						case 11:
-							return "A";
+							return " A";
 						case 12:
-							return "J";
+							return " J";
 						case 13:
-							return "D";
+							return " D";
 						case 14:
-							return "K";
+							return " K";
 						case 15:
-							return "@";
+							return " @";
 						default:
 							throw new System.ArgumentOutOfRangeException("Value is not allowed.");
 					}
@@ -48,6 +52,13 @@
 			return $"{DisplayValue}{Suite}";
 		}
 
+		public string IsStopped
+		{
+			get
+			{
+				return Stop ? " S " : "   ";
+			}
+		}
 
 	}
 

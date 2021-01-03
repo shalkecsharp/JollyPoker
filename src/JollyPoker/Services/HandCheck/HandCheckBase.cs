@@ -15,6 +15,15 @@ namespace JollyPoker.Services.HandCheck
 				c4.Suite.Value == c5.Suite.Value;
 		}
 
+		protected bool IsSameSuiteWithJoker(Card c1, Card c2, Card c3, Card c4, Card c5)
+		{
+			return
+				c1.Suite.Value == c2.Suite.Value &&
+				c2.Suite.Value == c3.Suite.Value &&
+				c3.Suite.Value == c4.Suite.Value &&
+				c5.Value == 15;
+		}
+
 		protected bool IsStreet(Card c1, Card c2, Card c3, Card c4, Card c5)
 		{
 			return IsGeneralStreet(c1, c2, c3, c4, c5) || IsStreetStartingWithAce(c1, c2, c3, c4, c5);

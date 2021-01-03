@@ -20,7 +20,7 @@ namespace JollyPoker.Services.HandCheck
 			return IsGeneralStreet(c1, c2, c3, c4, c5) || IsStreetStartingWithAce(c1, c2, c3, c4, c5);
 		}
 
-		private static bool IsGeneralStreet(Card c1, Card c2, Card c3, Card c4, Card c5)
+		private bool IsGeneralStreet(Card c1, Card c2, Card c3, Card c4, Card c5)
 		{
 			return 
 				c1.Value == c2.Value - 1 &&

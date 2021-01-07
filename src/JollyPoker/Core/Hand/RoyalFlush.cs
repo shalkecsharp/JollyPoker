@@ -1,4 +1,5 @@
 ﻿using JollyPoker.Enums;
+using System;
 
 namespace JollyPoker.Core.Hand
 {
@@ -9,5 +10,7 @@ namespace JollyPoker.Core.Hand
 		public int Value => 500;
 
 		public HandTypes Type => HandTypes.RoyalFlush;
+
+		public ConsoleColor Color => ConsoleColor.Red;
 	}
 }

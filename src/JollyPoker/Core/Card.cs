@@ -1,4 +1,6 @@
-﻿namespace JollyPoker.Core
+﻿using System;
+
+namespace JollyPoker.Core
 {
 	public class Card
 	{
@@ -58,6 +60,20 @@
 			{
 				return Stop ? " S " : "   ";
 			}
+		}
+
+		public void Draw(int currentLeft, int currentTop)
+		{
+			Console.BackgroundColor = ConsoleColor.White;
+			Console.ForegroundColor = Suite.Color;
+			Console.Write($"{this}      ");
+			for (int i = 1; i < 6; i++)
+			{
+				Console.SetCursorPosition(currentLeft, currentTop + i);
+				Console.Write("         ");
+			}
+			Console.SetCursorPosition(currentLeft, currentTop + 6);
+			Console.Write($"     {this} ");
 		}
 
 	}

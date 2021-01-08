@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace JollyPoker.UI
 {
@@ -19,6 +21,8 @@ namespace JollyPoker.UI
 				new ChipControl(ScreenWidth, ScreenHeight, CurrentChip),
 				new CardsControl()
 			};
+
+			InitScreen();
 		}
 
 		public int ScreenWidth { get; }
@@ -26,12 +30,23 @@ namespace JollyPoker.UI
 		public int CurrentCredit { get; }
 		public int CurrentChip { get; }
 
-		public void Draw()
+		public void Show()
 		{
 			foreach (var control in _controls)
 			{
 				control.Draw();
 			}
+		}
+
+		private void InitScreen()
+		{
+			Console.OutputEncoding = Encoding.UTF8;
+			Console.BackgroundColor = ConsoleColor.Black;
+			Console.CursorVisible = false;
+			Console.SetWindowSize(ScreenWidth, ScreenHeight);
+			Console.SetBufferSize(ScreenWidth, ScreenHeight);
+			Console.SetWindowPosition(0, 0);
+			Console.Clear();
 		}
 
 	}

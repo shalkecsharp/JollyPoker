@@ -1,6 +1,6 @@
 ﻿using JollyPoker.Core;
-using JollyPoker.Core.Hand;
 using JollyPoker.Services;
+using JollyPoker.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,54 +29,9 @@ namespace JollyPoker
 			var chip = 1;
 			var credit = 100;
 
-			// Draw board
-			var boards = GetHands();
-			Console.SetCursorPosition(0, 0);
-			foreach (var boardItem in boards)
-			{
-				Console.ForegroundColor = boardItem.Color;
-				Console.Write(boardItem.Title);
-				Console.SetCursorPosition(30, Console.CursorTop);
-				Console.Write(boardItem.Value);
-				Console.WriteLine();
-			}
-
-			// Draw credit
-			const string creditLabel = "Kredit";
-			Console.SetCursorPosition(width - creditLabel.Length, 1);
-			Console.ForegroundColor = ConsoleColor.Red;
-			Console.Write(creditLabel);
-
-			Console.SetCursorPosition(width - credit.ToString().Length, 2);
-			Console.ForegroundColor = ConsoleColor.White;
-			Console.Write(credit);
-
-			// Draw chip
-			const string chipLabel = "Chip";
-			Console.SetCursorPosition(width - chipLabel.Length, 4);
-			Console.ForegroundColor = ConsoleColor.Yellow;
-			Console.Write(chipLabel);
-
-			Console.SetCursorPosition(width - chip.ToString().Length, 5);
-			Console.ForegroundColor = ConsoleColor.White;
-			Console.Write(chip);
-
-			// Draw empty cards
-			var emptyCards = new List<Card> 
-			{
-				new Card(2, new Suite(1)),
-				new Card(5, new Suite(2)),
-				new Card(6, new Suite(3)),
-				new Card(14, new Suite(4)),
-				new Card(11, new Suite(1)),
-			};
-			
-			for (int i = 0; i < emptyCards.Count; i++)
-			{
-				var card = emptyCards[i];
-				Console.SetCursorPosition(i * 10, 11);
-				card.Draw(Console.CursorLeft, Console.CursorTop);
-			}
+			// Draw main screen
+			var mainScreen = new MainScreen(width, height, credit, chip);
+			mainScreen.Draw();
 
 
 			Console.ReadKey();
@@ -110,6 +65,8 @@ namespace JollyPoker
 
 			Console.ReadKey();
 		}
+
+
 
 		private static void PrintResult(HandResult secondHandResult)
 		{
@@ -180,22 +137,7 @@ namespace JollyPoker
 			Console.WriteLine("Za nastavak deljenja pritisnite taster ENTER.");
 		}
 
-		private static List<IHand> GetHands()
-		{
-			return new List<IHand> 
-			{
-				new FiveOfKind(),
-				new RoyalFlush(),
-				new StreetFlush(),
-				new Poker(),
-				new FullHouse(),
-				new Flush(),
-				new Street(),
-				new ThreeOfKind(),
-				new TwoPairs(),
-				new HighPair()
-			};
-		}
+		
 
 	}
 

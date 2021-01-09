@@ -20,7 +20,11 @@ namespace JollyPoker.Core
 		{
 			get
 			{
-				if (Value > 1 && Value < 10)
+				if (Value == 0)
+				{
+					return "";
+				}
+				else if (Value > 1 && Value < 10)
 				{
 					return $" {Value}";
 				}
@@ -54,28 +58,42 @@ namespace JollyPoker.Core
 			return $"{DisplayValue}{Suite}";
 		}
 
-		public string IsStopped
+		public void Draw(int currentLeft, int currentTop)
 		{
-			get
+			if (Value == 0)
 			{
-				return Stop ? " S " : "   ";
+				DrawEmptyCard(currentLeft, currentTop);
+			}
+			else
+			{
+				DrawNormalCard(currentLeft, currentTop);
 			}
 		}
 
-		public void Draw(int currentLeft, int currentTop)
+		private void DrawNormalCard(int currentLeft, int currentTop)
 		{
 			Console.BackgroundColor = ConsoleColor.White;
 			Console.ForegroundColor = Suite.Color;
-			Console.Write($"{this}      ");
+			Console.Write($"{this}       ");
 			for (int i = 1; i < 6; i++)
 			{
 				Console.SetCursorPosition(currentLeft, currentTop + i);
-				Console.Write("         ");
+				Console.Write("          ");
 			}
 			Console.SetCursorPosition(currentLeft, currentTop + 6);
-			Console.Write($"     {this} ");
+			Console.Write($"      {this} ");
 		}
 
+		private void DrawEmptyCard(int currentLeft, int currentTop)
+		{
+			Console.BackgroundColor = ConsoleColor.White;
+			Console.ForegroundColor = Suite.Color;
+			for (int i = 0; i < 7; i++)
+			{
+				Console.SetCursorPosition(currentLeft, currentTop + i);
+				Console.Write("▒▒▒▒▒▒▒▒▒▒");
+			}
+		}
 	}
 
 }

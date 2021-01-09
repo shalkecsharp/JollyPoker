@@ -6,6 +6,13 @@ namespace JollyPoker.UI
 {
 	public class BoardControl : IControl
 	{
+		private readonly GameCredit _gameCredit;
+
+		public BoardControl(GameCredit gameCredit)
+		{
+			_gameCredit = gameCredit;
+		}
+
 		public void Draw()
 		{
 			var boards = GetHands();
@@ -15,7 +22,7 @@ namespace JollyPoker.UI
 				Console.ForegroundColor = boardItem.Color;
 				Console.Write(boardItem.Title);
 				Console.SetCursorPosition(30, Console.CursorTop);
-				Console.Write(boardItem.Value);
+				Console.Write(boardItem.Value * _gameCredit.Chip);
 				Console.WriteLine();
 			}
 		}

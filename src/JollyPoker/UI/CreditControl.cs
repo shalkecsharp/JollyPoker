@@ -5,17 +5,17 @@ namespace JollyPoker.UI
 	public class CreditControl : IControl
 	{
 		private const string creditLabel = "Kredit";
+		private readonly GameCredit _gameCredit;
 
-		public CreditControl(int screenWidth, int screenHeight, int currentCredit)
+		public CreditControl(int screenWidth, int screenHeight, GameCredit gameCredit)
 		{
 			ScreenWidth = screenWidth;
 			ScreenHeight = screenHeight;
-			CurrentCredit = currentCredit;
+			_gameCredit = gameCredit;
 		}
 
 		public int ScreenWidth { get; }
 		public int ScreenHeight { get; }
-		public int CurrentCredit { get; }
 
 		public void Draw()
 		{
@@ -23,9 +23,9 @@ namespace JollyPoker.UI
 			Console.ForegroundColor = ConsoleColor.Red;
 			Console.Write(creditLabel);
 
-			Console.SetCursorPosition(ScreenWidth - CurrentCredit.ToString().Length, 2);
+			Console.SetCursorPosition(ScreenWidth - _gameCredit.Credit.ToString().Length, 2);
 			Console.ForegroundColor = ConsoleColor.White;
-			Console.Write(CurrentCredit);
+			Console.Write(_gameCredit.Credit);
 		}
 	}
 }

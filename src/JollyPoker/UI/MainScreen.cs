@@ -46,11 +46,11 @@ namespace JollyPoker.UI
 		{
 			return new List<Card> 
 			{
-				new Card(0, new Suite(0)),
-				new Card(0, new Suite(0)),
-				new Card(0, new Suite(0)),
-				new Card(0, new Suite(0)),
-				new Card(0, new Suite(0))
+				new EmptyCard(),
+				new EmptyCard(),
+				new EmptyCard(),
+				new EmptyCard(),
+				new EmptyCard(),
 			};
 		}
 

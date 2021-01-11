@@ -20,11 +20,7 @@ namespace JollyPoker.Core
 		{
 			get
 			{
-				if (Value == 0)
-				{
-					return "";
-				}
-				else if (Value > 1 && Value < 10)
+				if (Value > 1 && Value < 10)
 				{
 					return $" {Value}";
 				}
@@ -58,16 +54,9 @@ namespace JollyPoker.Core
 			return $"{DisplayValue}{Suite}";
 		}
 
-		public void Draw(int currentLeft, int currentTop)
+		public virtual void Draw(int currentLeft, int currentTop)
 		{
-			if (Value == 0)
-			{
-				DrawEmptyCard(currentLeft, currentTop);
-			}
-			else
-			{
-				DrawNormalCard(currentLeft, currentTop);
-			}
+			DrawNormalCard(currentLeft, currentTop);
 		}
 
 		private void DrawNormalCard(int currentLeft, int currentTop)
@@ -84,16 +73,6 @@ namespace JollyPoker.Core
 			Console.Write($"      {this} ");
 		}
 
-		private void DrawEmptyCard(int currentLeft, int currentTop)
-		{
-			Console.BackgroundColor = ConsoleColor.White;
-			Console.ForegroundColor = Suite.Color;
-			for (int i = 0; i < 7; i++)
-			{
-				Console.SetCursorPosition(currentLeft, currentTop + i);
-				Console.Write("▒▒▒▒▒▒▒▒▒▒");
-			}
-		}
 	}
 
 }

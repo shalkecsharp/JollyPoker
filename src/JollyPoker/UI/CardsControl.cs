@@ -19,7 +19,8 @@ namespace JollyPoker.UI
 			for (int i = 0; i < Cards.Count; i++)
 			{
 				var card = Cards[i];
-				Console.SetCursorPosition(i * 12, 11);
+				
+				Console.SetCursorPosition(i * (card.Width + 4), 11);
 				card.Draw(Console.CursorLeft, Console.CursorTop);
 			}
 		}

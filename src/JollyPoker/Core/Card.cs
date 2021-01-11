@@ -8,11 +8,17 @@ namespace JollyPoker.Core
 		{
 			Value = value;
 			Suite = sign;
+			Width = 9;
+			Height = 7;
 		}
 
 		public int Value { get; set; }
 
 		public Suite Suite { get; set; }
+
+		public int Width { get; }
+
+		public int Height { get; }
 
 		public bool Stop { get; set; }
 
@@ -43,7 +49,7 @@ namespace JollyPoker.Core
 						case 15:
 							return " @";
 						default:
-							throw new System.ArgumentOutOfRangeException("Value is not allowed.");
+							throw new ArgumentOutOfRangeException("Value is not allowed.");
 					}
 				}
 			}
@@ -63,14 +69,31 @@ namespace JollyPoker.Core
 		{
 			Console.BackgroundColor = ConsoleColor.White;
 			Console.ForegroundColor = Suite.Color;
-			Console.Write($"{this}       ");
+
+			// Draw first line
+			Console.Write($"{this}");
+			for (int i = 0; i <= Width - this.ToString().Length; i++)
+			{
+				Console.Write(" ");
+			}
+
+			// Draw middle of the card
 			for (int i = 1; i < 6; i++)
 			{
 				Console.SetCursorPosition(currentLeft, currentTop + i);
-				Console.Write("          ");
+				for (int j = 0; j <= Width; j++)
+				{
+					Console.Write(" ");
+				}
 			}
+
+			// Draw last line
 			Console.SetCursorPosition(currentLeft, currentTop + 6);
-			Console.Write($"      {this} ");
+			for (int i = 0; i < Width - this.ToString().Length; i++)
+			{
+				Console.Write(" ");
+			}
+			Console.Write($"{this} ");
 		}
 
 	}

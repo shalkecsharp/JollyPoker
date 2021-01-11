@@ -6,6 +6,8 @@ namespace JollyPoker.UI
 {
 	public class StopControl : IControl
 	{
+		private const string label = "Stop";
+
 		public List<Card> Cards { get; set; }
 
 		public StopControl(List<Card> cards)
@@ -20,14 +22,14 @@ namespace JollyPoker.UI
 			for (int i = 0; i < Cards.Count; i++)
 			{
 				var card = Cards[i];
-				Console.SetCursorPosition(i * 12, 18);
+				Console.SetCursorPosition(i * (card.Width + 4), 18);
 				if (card.Stop)
 				{
-					Console.Write("   Stop");
+					Console.Write(label.PadLeft(card.Width / 2 + label.Length - 1));
 				}
 				else
 				{
-					Console.Write("       ");
+					Console.Write(" ".PadLeft(card.Width));
 				}
 			}
 		}

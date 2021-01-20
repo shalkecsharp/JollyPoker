@@ -1,7 +1,5 @@
 ﻿using JollyPoker.Core;
-using JollyPoker.Services;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace JollyPoker.UI
@@ -39,36 +37,18 @@ namespace JollyPoker.UI
 
 			_mainScreen.WaitForCardStop(cards);
 
-			//_mainScreen.DealSecondHand();
+			// Second hand
+			var newCardsToDeal = 5 - cards.Count(p => p.Stop);
+			var secondHand = deckOfCards.DealCards(newCardsToDeal);
+
+			deckOfCards.ReplaceWithNewCards(cards, secondHand);
+			_mainScreen.DealSecondHand(cards);
 
 
 			Console.ReadKey();
 
-
-			//// First hand
-			//StopCards(cards);
-
-			//// Second hand
-			//var newCardsToDeal = 5 - cards.Count(p => p.Stop);
-			//var secondHand = deckOfCards.DealCards(newCardsToDeal);
-			//var newHand = cards.Where(p => p.Stop).Concat(secondHand).ToList();
-
-			//ResetStops(newHand);
-			//var secondHandResult = handService.CheckHand(newHand);
-			//PrintCards(newHand);
-			//PrintResult(secondHandResult);
-
-			Console.ReadKey();
 		}
 
-
-		private void ResetStops(List<Card> newHand)
-		{
-			foreach (var card in newHand)
-			{
-				card.Stop = false;
-			}
-		}
 
 	}
 }

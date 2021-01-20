@@ -2,6 +2,7 @@
 using JollyPoker.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace JollyPoker.UI
@@ -13,6 +14,8 @@ namespace JollyPoker.UI
 		private readonly CardsControl _cardsControl;
 		private readonly StopControl _stopControl;
 		private readonly GameCredit _gameCredit;
+		private readonly MessageControl _messageControl;
+		private readonly HandService _handService;
 
 		public int ScreenWidth { get; }
 		public int ScreenHeight { get; }
@@ -28,6 +31,7 @@ namespace JollyPoker.UI
 
 			_cardsControl = new CardsControl(emptyCards);
 			_stopControl = new StopControl(emptyCards);
+			_messageControl = new MessageControl(ScreenWidth);
 
 			_controls = new List<IControl> 
 			{
@@ -35,12 +39,16 @@ namespace JollyPoker.UI
 				new CreditControl(ScreenWidth, ScreenHeight, _gameCredit),
 				new ChipControl(ScreenWidth, ScreenHeight, _gameCredit),
 				_cardsControl,
-				new MessageControl(),
+				_messageControl,
 				_stopControl
 			};
 
+			_handService = new HandService();
+
 			InitScreen();
 		}
+
+
 
 		private List<Card> GetEmptyCards()
 		{
@@ -59,10 +67,13 @@ namespace JollyPoker.UI
 			Console.BackgroundColor = ConsoleColor.Black;
 			Console.ForegroundColor = ConsoleColor.White;
 			Console.Clear();
+
 			foreach (var control in _controls)
 			{
 				control.Draw();
 			}
+
+			_messageControl.Title = "Use UP/DOWN to change chip. Press ENTER to deal cards.";
 		}
 
 		private void InitScreen()
@@ -78,14 +89,29 @@ namespace JollyPoker.UI
 
 		public void DealFirstHand(List<Card> cards)
 		{
-			var handService = new HandService();
-			var handResult = handService.CheckHand(cards);
+			var handResult = _handService.CheckHand(cards);
 
 			_cardsControl.Cards = cards;
 			_cardsControl.Draw();
 
 			_stopControl.Cards = cards;
 			_stopControl.Draw();
+
+			_messageControl.Title = "Use 1,2,3,4 and 5 to stop cards. Press ENTER to deal new cards.";
+		}
+
+		public void DealSecondHand(List<Card> cards)
+		{
+			ResetStops(cards);
+			var secondHandResult = _handService.CheckHand(cards);
+
+			_cardsControl.Cards = cards;
+			_cardsControl.Draw();
+
+			_stopControl.Cards = cards;
+			_stopControl.Draw();
+
+			_messageControl.Title = $"Your result: {secondHandResult?.Result.Title}";
 		}
 
 		public void WaitForChipInput()
@@ -151,6 +177,14 @@ namespace JollyPoker.UI
 						stoppingCards = false;
 						break;
 				}
+			}
+		}
+
+		private void ResetStops(List<Card> cards)
+		{
+			foreach (var card in cards)
+			{
+				card.Stop = false;
 			}
 		}
 	}

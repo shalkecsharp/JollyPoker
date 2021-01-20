@@ -40,6 +40,20 @@ namespace JollyPoker.Core
 
 			return cards;
 		}
+
+		public void ReplaceWithNewCards(List<Card> cards, List<Card> secondHand)
+		{
+			var indexer = 0;
+			for (int i = 0; i < cards.Count; i++)
+			{
+				var card = cards[i];
+				if (!card.Stop)
+				{
+					cards[i] = secondHand[indexer];
+					indexer++;
+				}
+			}
+		}
 	}
 
 }

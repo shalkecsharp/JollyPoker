@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace JollyPoker.Core
+﻿namespace JollyPoker.Core
 {
 	public class EmptyCard : Card
 	{
@@ -8,17 +6,5 @@ namespace JollyPoker.Core
 		{
 			
 		}
-
-		public override void Draw(int currentLeft, int currentTop)
-		{
-			Console.BackgroundColor = ConsoleColor.White;
-			Console.ForegroundColor = Suite.Color;
-			for (int i = 0; i < 7; i++)
-			{
-				Console.SetCursorPosition(currentLeft, currentTop + i);
-				Console.Write("▒▒▒▒▒▒▒▒▒▒");
-			}
-		}
 	}
-
 }

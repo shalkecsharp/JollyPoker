@@ -10,4 +10,19 @@
     <None Remove=".gitignore" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="UI\Templates\CardTemplates.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CardTemplates.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="UI\Templates\CardTemplates.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>CardTemplates.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

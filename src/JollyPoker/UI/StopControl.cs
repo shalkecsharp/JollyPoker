@@ -22,10 +22,10 @@ namespace JollyPoker.UI
 			for (int i = 0; i < Cards.Count; i++)
 			{
 				var card = Cards[i];
-				Console.SetCursorPosition(i * (card.Width + 4), 18);
+				Console.SetCursorPosition(i * (card.Width + 4), 20);
 				if (card.Stop)
 				{
-					Console.Write(label.PadLeft(card.Width / 2 + label.Length - 1));
+					Console.Write(label.PadLeft(card.Width / 2 + label.Length - 2));
 				}
 				else
 				{

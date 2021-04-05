@@ -28,7 +28,7 @@ namespace JollyPoker.UI
 
 		public void Draw()
 		{
-			Console.SetCursorPosition(0, 20);
+			Console.SetCursorPosition(0, 22);
 			Console.ForegroundColor = ConsoleColor.Red;
 			Console.BackgroundColor = ConsoleColor.Black;
 			Console.Write(Title.PadRight(_screenWidth-1));

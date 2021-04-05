@@ -12,8 +12,8 @@ namespace JollyPoker
 	{
 		static void Main(string[] args)
 		{
-			const int width = 70;
-			const int height = 21;
+			const int width = 76;
+			const int height = 24;
 			const int chip = 1;
 			const int credit = 100;
 			
